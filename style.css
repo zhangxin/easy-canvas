@@ -8,8 +8,20 @@ body {
   background-color: red;
 }
 
-#eraser {
+.switch-stationery {
   position: fixed;
   bottom: 10px;
   left: 10px;
+}
+
+.switch-stationery > #eraser {
+  display: none;
+}
+
+.switch-stationery.toggle > #eraser {
+  display: inline-block;
+}
+
+.switch-stationery.toggle > #pen {
+  display: none;
 }
