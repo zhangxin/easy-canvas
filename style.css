@@ -1,0 +1,15 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#pannel {
+  background-color: red;
+}
+
+#eraser {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+}
