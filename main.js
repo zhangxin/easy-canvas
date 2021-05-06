@@ -10,7 +10,7 @@ const context = cavans.getContext('2d')
 let isWorking = false
 let isEraserWorking = false
 let oldPoint = { x: undefined, y: undefined }
-
+let lineWidth = 3
 
 // 重置画布尺寸
 autoSetCavansSize(cavans)
@@ -20,7 +20,7 @@ listenToUser(cavans)
 
 
 function listenToUser(cavans) {
-  // 获取橡皮和画笔
+  // 获取橡皮和画笔清屏和下载
   const eraser = document.querySelector('#eraser')
   const pen = document.querySelector('#pen')
   const clear = document.querySelector('#clear')
@@ -50,6 +50,7 @@ function listenToUser(cavans) {
     isEraserWorking = false
   })
 
+  // 下载图片
   download.addEventListener('click', () => {
     let link = document.createElement('a');
     link.download = 'filename.png';
@@ -57,8 +58,38 @@ function listenToUser(cavans) {
     link.click();
   })
 
-  // 下载图片
 
+  // 设置画笔颜色
+
+  let colorArray = document.querySelectorAll('.color>li')
+
+  colorArray.forEach(pen => {
+    pen.addEventListener('click', (event) => {
+      let color = event.target.className
+      colorArray.forEach(pen => {
+        pen.classList.remove('active')
+      })
+      event.target.classList.add('active')
+      context.strokeStyle = color
+    })
+  })
+
+
+  // 设置画笔粗细
+
+  let lineArray = document.querySelectorAll('.line>li')
+
+  lineArray.forEach(line => {
+    line.addEventListener('click', (event) => {
+      lineArray.forEach(pen => {
+        pen.classList.remove('active')
+      })
+      let lineSize = window.getComputedStyle(event.target,null).getPropertyValue("height")
+      event.target.classList.add('active')
+
+      lineWidth = parseInt(lineSize, 10)
+    })
+  })
 
   // 设置起点
 
@@ -112,6 +143,9 @@ function listenToUser(cavans) {
 }
 
 
+
+
+
 /******画板尺寸重置******/
 
 function autoSetCavansSize(cavans) {
@@ -121,6 +155,8 @@ function autoSetCavansSize(cavans) {
 
     cavans.width = deviceWidth
     cavans.height = deviceHeight
+    context.fillStyle = "rgb(255,255,255)";
+    context.fillRect (0, 0, deviceWidth, deviceHeight);
   }
 
   // 设置画板全屏
@@ -164,7 +200,7 @@ function startDraw(x, y) {
     if (isEraserWorking) {
       context.clearRect(x - 8, y - 8, 16, 16)
     } else {
-      context.lineWidth = 5
+      context.lineWidth = lineWidth
       drawLine(oldPoint.x, oldPoint.y, newPoint.x, newPoint.y)
       oldPoint = newPoint
     }
