@@ -8,3 +8,5 @@
 - 一键清屏
 - 图片下载
 - 兼容移动端
+## 预览
+[我的画板](https://zhangxin.github.io/easy-canvas/)
