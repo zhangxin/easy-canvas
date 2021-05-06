@@ -5,9 +5,12 @@ const cavans = document.querySelector('#pannel')
 // 获取渲染上下文
 const context = cavans.getContext('2d')
 
-// 获取橡皮和画笔
-const eraser = document.querySelector('#eraser')
-const pen = document.querySelector('#pen')
+
+// 设置一些全局状态
+let isWorking = false
+let isEraserWorking = false
+let oldPoint = { x: undefined, y: undefined }
+
 
 // 重置画布尺寸
 autoSetCavansSize(cavans)
@@ -16,26 +19,46 @@ autoSetCavansSize(cavans)
 listenToUser(cavans)
 
 
-// 设置一些全局状态
-let isWorking = false
-let isEraserWorking = false
-let oldPoint = { x: undefined, y: undefined }
-
 function listenToUser(cavans) {
+  // 获取橡皮和画笔
+  const eraser = document.querySelector('#eraser')
+  const pen = document.querySelector('#pen')
+  const clear = document.querySelector('#clear')
+  const download = document.querySelector('#download')
 
   // 设置画笔和橡皮是否工作
-
   eraser.addEventListener('click', () => {
-    isEraserWorking = !isEraserWorking
+    isEraserWorking = true
 
-    document.querySelector('.switch-stationery.toggle').classList.remove('toggle')
+    clear.classList.remove('click')
+    pen.classList.remove('click')
+    eraser.classList.add('click')
   })
 
   pen.addEventListener('click', () => {
-    isEraserWorking = !isEraserWorking
+    isEraserWorking = false
 
-    document.querySelector('.switch-stationery').classList.add('toggle')
+    pen.classList.add('click')
+    eraser.classList.remove('click')
+    clear.classList.remove('click')
   })
+
+  clear.addEventListener('click', () => {
+    context.clearRect(0, 0, cavans.width, cavans.height);
+    pen.classList.add('click')
+    eraser.classList.remove('click')
+    isEraserWorking = false
+  })
+
+  download.addEventListener('click', () => {
+    let link = document.createElement('a');
+    link.download = 'filename.png';
+    link.href = cavans.toDataURL()
+    link.click();
+  })
+
+  // 下载图片
+
 
   // 设置起点
 

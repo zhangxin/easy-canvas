@@ -4,8 +4,17 @@ body {
   margin: 0;
 }
 
+/* 字体图标 */
+.icon {
+  width: 1.5em; height: 1.5em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  transition: 0.25s;
+  margin: 5px;
+}
+
 #pannel {
-  background-color: red;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -13,18 +22,21 @@ body {
 
 .switch-stationery {
   position: fixed;
-  bottom: 10px;
+  top: 10px;
   left: 10px;
 }
 
-.switch-stationery > #eraser {
-  display: none;
+.switch-stationery > #eraser.click {
+  transform: scale(1.5);
+}
+.switch-stationery > #pen.click {
+  transform: scale(1.5);
+}
+.switch-stationery > #clear.click {
+  transform: scale(1.5);
 }
 
-.switch-stationery.toggle > #eraser {
-  display: inline-block;
-}
-
-.switch-stationery.toggle > #pen {
-  display: none;
+#clear:hover,
+#download:hover {
+  transform: scale(1.2);
 }
