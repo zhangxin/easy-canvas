@@ -84,7 +84,7 @@ function listenToUser(cavans) {
       lineArray.forEach(pen => {
         pen.classList.remove('active')
       })
-      let lineSize = window.getComputedStyle(event.target,null).getPropertyValue("height")
+      let lineSize = window.getComputedStyle(event.target, null).getPropertyValue("height")
       event.target.classList.add('active')
 
       lineWidth = parseInt(lineSize, 10)
@@ -155,8 +155,8 @@ function autoSetCavansSize(cavans) {
 
     cavans.width = deviceWidth
     cavans.height = deviceHeight
-    context.fillStyle = "rgb(255,255,255)";
-    context.fillRect (0, 0, deviceWidth, deviceHeight);
+    context.fillStyle = "rgba(0,0,0,0.08)";
+    context.fillRect(0, 0, deviceWidth, deviceHeight);
   }
 
   // 设置画板全屏
