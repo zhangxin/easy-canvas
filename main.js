@@ -93,6 +93,7 @@ function listenToUser(cavans) {
 
   // 设置起点
 
+  // 特性检测
   if (document.ontouchstart !== undefined) {
 
     // 触屏设备逻辑
@@ -108,7 +109,7 @@ function listenToUser(cavans) {
       let x = event.touches[0].clientX
       let y = event.touches[0].clientY
 
-      startDraw(x, y)
+      startDrawOrClear(x, y)
     })
 
     cavans.addEventListener('touchend', () => {
@@ -132,7 +133,7 @@ function listenToUser(cavans) {
 
     let x = event.clientX
     let y = event.clientY
-    startDraw(x, y)
+    startDrawOrClear(x, y)
 
   })
 
@@ -155,7 +156,7 @@ function autoSetCavansSize(cavans) {
 
     cavans.width = deviceWidth
     cavans.height = deviceHeight
-    context.fillStyle = "rgba(0,0,0,0.08)";
+    context.fillStyle = "rgba(255,255,255)";
     context.fillRect(0, 0, deviceWidth, deviceHeight);
   }
 
@@ -190,7 +191,7 @@ function clickOrTouch(x, y) {
 }
 
 /***鼠标或手指移动的逻辑***/
-function startDraw(x, y) {
+function startDrawOrClear(x, y) {
   let newPoint = {
     x,
     y
